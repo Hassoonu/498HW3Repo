@@ -14,7 +14,7 @@ collection = client["ev_db"]["vehicles"]
 def insert_fast():
     record = request.get_json()
     fast_collection = collection.with_options(
-        write_concern=WriteConcern(1))
+        write_concern=WriteConcern(w=1))
     result = fast_collection.insert_one(record)
     return jsonify({"inserted_id": str(result.inserted_id)})
 
@@ -23,7 +23,7 @@ def insert_fast():
 def insert_safe():
     record = request.get_json()
     safe_collection = collection.with_options(
-        write_concern=WriteConcern("majority"))
+        write_concern=WriteConcern(w="majority"))
     result = safe_collection.insert_one(record)
     return jsonify({"inserted_id": str(result.inserted_id)})
 
